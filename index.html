@@ -610,6 +610,48 @@
     .login-hint { font-size:11px; }
 
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+
+    /* ===== SIDEBAR MOBILE: botão fechar + overlay ===== */
+    .sidebar-close { display:none; margin-left:auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text); font-size:18px; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0; }
+    .sidebar-close:active { transform:scale(.92); }
+    .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(3,8,16,.6); backdrop-filter:blur(2px); z-index:45; opacity:0; transition:opacity .25s; }
+    @media (max-width:900px) {
+      .sidebar { height:100vh; height:100dvh; width:min(290px,86vw); visibility:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1), visibility 0s .3s; box-shadow:none; }
+      .sidebar.open { visibility:visible; transition:transform .3s cubic-bezier(.16,1,.3,1), visibility 0s; box-shadow:8px 0 40px rgba(0,0,0,.5); }
+      .sidebar-close { display:flex; }
+      .sidebar-overlay { display:block; pointer-events:none; }
+      .sidebar-overlay.show { opacity:1; pointer-events:auto; }
+      .nav { -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
+      body.menu-open { overflow:hidden; }
+      .menu-toggle { padding:6px 8px; }
+    }
+
+    /* ===== AGENTES IA ===== */
+    .ag-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    @media (max-width:900px) { .ag-grid { grid-template-columns:1fr; } }
+    .ag-card { background:linear-gradient(145deg,#142238,#101b2c); border:1px solid rgba(65,87,119,.55); border-radius:15px; padding:18px; box-shadow:var(--shadow); }
+    .ag-card h3 { font-size:15px; display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+    .ag-card p.sub { color:var(--text-muted); font-size:12.5px; margin-bottom:14px; line-height:1.45; }
+    .ag-card label { display:block; font-size:12px; color:var(--text-muted); margin:10px 0 5px; }
+    .ag-card input, .ag-card select { width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); padding:10px 12px; font-size:14px; outline:none; }
+    .ag-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .ag-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .ag-dot { width:8px; height:8px; border-radius:50%; background:var(--text-muted); display:inline-block; }
+    .ag-dot.on { background:var(--success); box-shadow:0 0 8px var(--success); animation:agPulse 1s infinite; }
+    @keyframes agPulse { 50% { opacity:.4; } }
+    .ag-switch { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border:1px dashed var(--border); border-radius:10px; margin-top:12px; font-size:13px; opacity:.75; }
+    .ag-switch .pill { font-size:11px; padding:3px 9px; border-radius:999px; background:rgba(139,155,180,.15); color:var(--text-muted); font-weight:600; }
+    .ag-log { background:#070d18; border:1px solid var(--border); border-radius:10px; padding:12px; font:12px/1.55 ui-monospace,Menlo,Consolas,monospace; max-height:150px; overflow:auto; color:#9fb4d1; }
+    .ag-bar { height:8px; background:var(--bg); border-radius:8px; overflow:hidden; margin-top:10px; }
+    .ag-bar > div { height:100%; width:0; background:linear-gradient(90deg,#3979ee,#06b6d4); transition:width .3s; }
+    .ag-score { font-weight:700; }
+    .ag-hot { color:var(--success); } .ag-warm { color:var(--warning); } .ag-cold { color:var(--danger); }
+    .ag-note { font-size:11.5px; color:var(--text-muted); margin-top:10px; line-height:1.45; }
+    .ag-banner { padding:11px 14px; border-radius:10px; font-size:12.5px; line-height:1.45; margin-bottom:16px; border:1px solid; }
+    .ag-banner.demo { background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.4); color:#fbbf24; }
+    .ag-banner.real { background:rgba(34,197,94,.1); border-color:rgba(34,197,94,.4); color:#4ade80; }
+    .ag-tag-demo { font-size:10px; font-weight:700; padding:2px 6px; border-radius:6px; background:rgba(245,158,11,.18); color:#fbbf24; margin-left:6px; }
+    details.ag-cfg summary { cursor:pointer; font-size:13px; color:var(--text-muted); padding:4px 0; }
   </style>
 </head>
 <body>
@@ -660,6 +702,7 @@
           Solution Math
           <span>Gestão empresarial</span>
         </div>
+        <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Fechar menu">✕</button>
       </div>
       <nav class="nav">
         <div class="nav-section">
@@ -676,6 +719,10 @@
           <a class="nav-item" data-view="lista">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
             Lista de Leads
+          </a>
+          <a class="nav-item" data-view="agentes">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Agentes IA
           </a>
         </div>
         <div class="nav-section">
@@ -701,6 +748,8 @@
         </button>
       </div>
     </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <div class="main">
       <header class="topbar">
@@ -832,6 +881,83 @@
           <div class="toolbar" style="justify-content:space-between;"><div><h2 style="font-size:18px;margin-bottom:5px;">Carteira de clientes</h2><p style="color:var(--text-muted);font-size:13px;">Clientes são leads que chegaram à etapa Fechado.</p></div><input id="clients-search" placeholder="Buscar cliente..." style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);min-width:220px;"></div>
           <div class="stats-grid"><div class="stat-card"><div class="stat-label">Clientes ativos</div><div class="stat-value" id="clients-total">0</div></div><div class="stat-card"><div class="stat-label">Valor contratado</div><div class="stat-value" id="clients-value">R$ 0</div></div><div class="stat-card"><div class="stat-label">Ticket médio</div><div class="stat-value" id="clients-ticket">R$ 0</div></div></div>
           <div class="table-wrap"><table><thead><tr><th>Contato / Empresa</th><th>Cidade</th><th>Telefone</th><th>E-mail</th><th>Contrato</th><th></th></tr></thead><tbody id="clients-table"></tbody></table></div>
+        </div>
+
+
+        <!-- AGENTES IA -->
+        <div class="view" id="view-agentes">
+          <div class="toolbar" style="justify-content:space-between;">
+            <div><h2 style="font-size:18px;margin-bottom:5px;">Agentes de IA</h2><p style="color:var(--text-muted);font-size:13px;">Um agente prospecta, o outro qualifica. Os interessados vão pro CRM.</p></div>
+            <span style="font-size:12px;color:var(--text-muted)"><span class="ag-dot" id="ag-dot"></span> <span id="ag-status">Parado</span></span>
+          </div>
+
+          <div class="ag-banner demo" id="ag-banner"></div>
+
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Prospectados</div><div class="stat-value" id="ag-n-pros">0</div></div>
+            <div class="stat-card"><div class="stat-label">Qualificados</div><div class="stat-value" id="ag-n-qual">0</div></div>
+            <div class="stat-card"><div class="stat-label">Com interesse</div><div class="stat-value" id="ag-n-hot" style="color:var(--success)">0</div></div>
+            <div class="stat-card"><div class="stat-label">Taxa de interesse</div><div class="stat-value" id="ag-n-rate">0%</div></div>
+          </div>
+
+          <div class="ag-grid">
+            <div class="ag-card">
+              <h3>🔎 Agente 1 · Prospecção</h3>
+              <p class="sub">Busca empresas que combinam com o nicho que você escolher.</p>
+              <label>O que prospectar hoje?</label>
+              <input id="ag-nicho" type="text" placeholder="Ex.: clínicas, oficinas, transportadoras" value="Clínicas e consultórios">
+              <div class="ag-row">
+                <div><label>Cidade</label><input id="ag-cidade" type="text" value="São Paulo"></div>
+                <div><label>Quantidade</label><input id="ag-qtd" type="number" min="1" max="100" value="30"></div>
+              </div>
+              <label>Segmento no CRM</label>
+              <select id="ag-seg"><option>Saúde</option><option>Comércio</option><option>Serviços</option><option>Indústria</option><option>Logística</option><option>Outros</option></select>
+              <div class="ag-actions"><button class="btn btn-primary" id="ag-run-pros">Rodar prospecção</button></div>
+            </div>
+
+            <div class="ag-card">
+              <h3>✅ Agente 2 · Qualificação</h3>
+              <p class="sub">Dá nota de 0 a 100 pra cada lead e marca quem demonstrou interesse.</p>
+              <label>Nota mínima pra considerar interessado</label>
+              <input id="ag-min" type="number" min="10" max="95" value="70">
+              <div class="ag-switch"><span>📱 Contato por WhatsApp</span><span class="pill">Inativo na demo</span></div>
+              <p class="ag-note">Na versão instalada, o agente chama o lead pelo WhatsApp. Na demo fica desligado.</p>
+              <div class="ag-actions">
+                <button class="btn btn-primary" id="ag-run-qual">Qualificar leads</button>
+                <button class="btn btn-ghost" id="ag-save-crm">Enviar interessados pro CRM</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ag-card" style="margin-bottom:16px;">
+            <details class="ag-cfg" open>
+              <summary>⚙️ Conexões (fonte de dados reais + IA)</summary>
+              <label>Chave do Google Maps Places API (prospecção REAL)</label>
+              <input id="ag-gkey" type="password" placeholder="Cole a chave do Google Cloud aqui">
+              <p class="ag-note">Traz empresas reais (nome, telefone, site, avaliações). Máx. 60 por busca. Sem essa chave, a prospecção roda em modo demo com dados fictícios.</p>
+              <div class="ag-row">
+                <div><label>URL da API (padrão OpenAI)</label><input id="ag-url" type="text" value="https://api.z.ai/api/paas/v4/chat/completions"></div>
+                <div><label>Modelo</label><input id="ag-model" type="text" value="glm-4.6"></div>
+              </div>
+              <label>Chave da IA (opcional, melhora a qualificação)</label>
+              <input id="ag-key" type="password" placeholder="Cole a chave aqui (fica só neste aparelho)">
+              <p class="ag-note">Os leads reais vêm do Google. A chave da IA só serve pra dar a nota; sem ela a nota é calculada por regras (telefone, site, avaliações). Em produção as chaves devem ficar no servidor, não no navegador.</p>
+              <div class="ag-actions"><button class="btn btn-ghost btn-sm" id="ag-save-cfg">Salvar conexão</button></div>
+            </details>
+          </div>
+
+          <div class="ag-card" style="margin-bottom:16px;">
+            <div id="ag-prog-label" style="font-size:12px;color:var(--text-muted)">Aguardando</div>
+            <div class="ag-bar"><div id="ag-prog"></div></div>
+            <div class="ag-log" id="ag-log" style="margin-top:12px;">Pronto. Escolha o nicho e rode a prospecção.</div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Lead</th><th>Cidade</th><th>Telefone</th><th>Nota</th><th>Status</th><th>Motivo</th></tr></thead>
+              <tbody id="ag-table"><tr><td colspan="6" class="empty">Nenhum lead ainda.</td></tr></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- RELATÓRIOS -->
@@ -1324,7 +1450,7 @@
         const view = item.dataset.view;
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById('view-' + view).classList.add('active');
-        const titles = { dashboard: 'Dashboard', prospeccao: 'Prospecção de Leads', lista: 'Lista de Leads', financeiro: 'Financeiro', clientes: 'Clientes', relatorios: 'Relatórios' };
+        const titles = { dashboard: 'Dashboard', prospeccao: 'Prospecção de Leads', lista: 'Lista de Leads', financeiro: 'Financeiro', clientes: 'Clientes', relatorios: 'Relatórios', agentes: 'Agentes IA' };
         document.getElementById('page-title').textContent = titles[view] || 'Dashboard';
       });
     });
@@ -1344,9 +1470,18 @@
     document.getElementById('search-lista').addEventListener('input', renderAll);
     document.getElementById('filter-status-lista').addEventListener('change', renderAll);
 
-    document.getElementById('menu-toggle').addEventListener('click', () => {
-      document.getElementById('sidebar').classList.toggle('open');
-    });
+    // ---- Sidebar mobile ----
+    const sidebarEl = document.getElementById('sidebar');
+    const overlayEl = document.getElementById('sidebar-overlay');
+    function openSidebar(){ sidebarEl.classList.add('open'); overlayEl.classList.add('show'); document.body.classList.add('menu-open'); }
+    function closeSidebar(){ sidebarEl.classList.remove('open'); overlayEl.classList.remove('show'); document.body.classList.remove('menu-open'); }
+    document.getElementById('menu-toggle').addEventListener('click', () => sidebarEl.classList.contains('open') ? closeSidebar() : openSidebar());
+    document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
+    overlayEl.addEventListener('click', closeSidebar);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeSidebar(); });
+    document.querySelectorAll('.nav-item[data-view]').forEach(i => i.addEventListener('click', () => { if (window.innerWidth <= 900) closeSidebar(); }));
+    document.getElementById('btn-logout').addEventListener('click', closeSidebar);
 
     document.getElementById('btn-new-transaction').addEventListener('click', openTransaction);
     document.getElementById('transaction-close').addEventListener('click', closeTransaction);
@@ -1373,6 +1508,225 @@
       btn.appendChild(ripple);
       setTimeout(() => ripple.remove(), 500);
     });
+
+
+    // ========== AGENTES IA (PROSPECÇÃO + QUALIFICAÇÃO) ==========
+    (function(){
+      const $ = id => document.getElementById(id);
+      let pool = JSON.parse(localStorage.getItem('sm_ag_pool') || '[]');
+      let busy = false;
+      const cfg = JSON.parse(localStorage.getItem('sm_ag_cfg') || '{}');
+      if (cfg.url) $('ag-url').value = cfg.url;
+      if (cfg.model) $('ag-model').value = cfg.model;
+      if (cfg.key) $('ag-key').value = cfg.key;
+      if (cfg.gkey) $('ag-gkey').value = cfg.gkey;
+
+      const persist = () => localStorage.setItem('sm_ag_pool', JSON.stringify(pool));
+      const log = m => { const l = $('ag-log'); l.textContent += '\n' + m; l.scrollTop = l.scrollHeight; };
+      const prog = (p, label) => { $('ag-prog').style.width = p + '%'; if (label) $('ag-prog-label').textContent = label; };
+      const setBusy = (b, txt) => { busy = b; $('ag-dot').classList.toggle('on', b); $('ag-status').textContent = b ? txt : 'Parado'; ['ag-run-pros','ag-run-qual','ag-save-crm'].forEach(i => $(i).disabled = b); };
+      const hasKey = () => $('ag-key').value.trim().length > 8;
+      const hasGoogle = () => $('ag-gkey').value.trim().length > 8;
+      function banner() {
+        const b = $('ag-banner');
+        if (hasGoogle()) { b.className = 'ag-banner real'; b.textContent = '✔ Prospecção REAL: empresas do Google Maps. A nota é calculada por regras ou pela IA, e mede potencial, não interesse confirmado.'; }
+        else { b.className = 'ag-banner demo'; b.textContent = '⚠ MODO DEMO: nomes, telefones e notas são FICTÍCIOS. Cole a chave do Google Maps em “Conexões” pra prospectar empresas reais.'; }
+      }
+      $('ag-gkey').addEventListener('input', banner);
+      async function googleSearch(query, qtd) {
+        const out = []; let token = null;
+        do {
+          const body = { textQuery: query, languageCode: 'pt-BR', regionCode: 'BR', pageSize: 20 };
+          if (token) body.pageToken = token;
+          const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': $('ag-gkey').value.trim(), 'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.businessStatus,nextPageToken' },
+            body: JSON.stringify(body)
+          });
+          if (!res.ok) { let m = 'erro ' + res.status; try { m = (await res.json()).error?.message || m; } catch (e) {} throw new Error('Google: ' + m); }
+          const data = await res.json();
+          (data.places || []).forEach(x => { if (!x.businessStatus || x.businessStatus === 'OPERATIONAL') out.push(x); });
+          token = data.nextPageToken;
+          prog(Math.min(95, out.length / qtd * 100), `Buscando no Google Maps… ${Math.min(out.length, qtd)}/${qtd}`);
+        } while (token && out.length < qtd);
+        return out.slice(0, qtd);
+      }
+      function ruleQualify(items) {
+        return items.map(l => {
+          let sc = 20; const why = [];
+          if (l.telefone) { sc += 25; why.push('tem telefone'); } else why.push('sem telefone');
+          if (l.site) { sc += 15; why.push('tem site'); }
+          if (l.rating >= 4.5) sc += 20; else if (l.rating >= 4) sc += 12; else if (l.rating >= 3.5) sc += 5;
+          if (l.rating) why.push(`nota ${l.rating} (${l.reviews || 0} aval.)`);
+          if (l.reviews >= 100) sc += 15; else if (l.reviews >= 30) sc += 8;
+          sc = Math.max(0, Math.min(98, sc));
+          if (!l.telefone) sc = Math.min(sc, 39);
+          return { id: l.id, score: sc, motivo: why.join(', ') };
+        });
+      }
+      const rnd = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+      const pick = arr => arr[rnd(0, arr.length - 1)];
+
+      $('ag-save-cfg').addEventListener('click', () => {
+        localStorage.setItem('sm_ag_cfg', JSON.stringify({ url: $('ag-url').value.trim(), model: $('ag-model').value.trim(), key: $('ag-key').value.trim(), gkey: $('ag-gkey').value.trim() }));
+        banner(); toast('Conexão salva neste aparelho');
+      });
+
+      async function askLLM(system, user) {
+        const res = await fetch($('ag-url').value.trim(), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + $('ag-key').value.trim() },
+          body: JSON.stringify({ model: $('ag-model').value.trim(), temperature: 0.7, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] })
+        });
+        if (!res.ok) throw new Error('API respondeu ' + res.status);
+        const data = await res.json();
+        const text = data.choices?.[0]?.message?.content || '';
+        const m = text.match(/\[[\s\S]*\]/);
+        if (!m) throw new Error('Resposta sem JSON');
+        return JSON.parse(m[0]);
+      }
+
+      // ---- modo demo (sem API) ----
+      const FIRST = ['Carlos','Fernanda','Ricardo','Patrícia','Marcos','Juliana','André','Luciana','Rafael','Camila','Bruno','Aline','Eduardo','Tatiane','Felipe','Renata'];
+      const LAST = ['Almeida','Souza','Lima','Ferreira','Rocha','Martins','Barbosa','Ribeiro','Carvalho','Nunes','Teixeira','Moreira'];
+      function demoProspect(nicho, cidade, n) {
+        const base = nicho.split(/[,\/]| e /)[0].trim() || 'Empresa';
+        const tags = ['Premium','Center','Pró','Total','Express','Vida','Master','Plus','Ideal','Alfa'];
+        return Array.from({ length: n }, () => {
+          const nome = pick(FIRST) + ' ' + pick(LAST);
+          return { nome, empresa: base.charAt(0).toUpperCase() + base.slice(1) + ' ' + pick(tags), cidade, telefone: '(11) 90000-0000', email: '', fake: true };
+        });
+      }
+      const REASONS_HOT = ['Perfil bate com o produto e porte ideal','Empresa em crescimento, decisor identificado','Já usa ferramentas parecidas, abertura alta','Região com alta demanda pelo serviço'];
+      const REASONS_MID = ['Interesse possível, falta confirmar decisor','Porte pequeno, precisa de mais contexto'];
+      const REASONS_LOW = ['Fora do perfil de cliente ideal','Baixa chance de compra no momento','Sem sinais de demanda'];
+      function demoQualify(items) {
+        return items.map(l => {
+          const r = Math.random();
+          const score = r < 0.2 ? rnd(72, 96) : r < 0.55 ? rnd(40, 69) : rnd(8, 39);
+          return { id: l.id, score, motivo: score >= 70 ? pick(REASONS_HOT) : score >= 40 ? pick(REASONS_MID) : pick(REASONS_LOW) };
+        });
+      }
+
+      // ---- Agente 1 ----
+      async function runProspect() {
+        if (busy) return;
+        const nicho = $('ag-nicho').value.trim(), cidade = $('ag-cidade').value.trim();
+        const qtd = Math.max(1, Math.min(100, Number($('ag-qtd').value) || 30));
+        if (!nicho) { toast('Informe o que prospectar'); return; }
+        setBusy(true, 'Prospectando…');
+        const g = hasGoogle();
+        log(`\n▶ Agente 1: ${qtd} leads de "${nicho}" em ${cidade || 'qualquer cidade'} (${g ? 'Google Maps — REAL' : 'modo demo — fictício'})`);
+        let got = [];
+        if (g) {
+          try {
+            const found = await googleSearch(`${nicho} em ${cidade}`.trim(), Math.min(qtd, 60));
+            const have = new Set(pool.map(x => x.gid));
+            const seg = $('ag-seg').value, stamp = Date.now();
+            let i = 0;
+            found.forEach(x => { if (have.has(x.id)) return; pool.push({ id: stamp + (i++), gid: x.id, nome: x.displayName?.text || 'Empresa', empresa: x.displayName?.text || 'Empresa', cidade, endereco: x.formattedAddress || '', telefone: x.nationalPhoneNumber || '', email: '', site: x.websiteUri || '', rating: x.rating || 0, reviews: x.userRatingCount || 0, segmento: seg, nicho, fake: false, score: null, motivo: '', interessado: false, enviado: false }); });
+            persist(); render(); prog(100, 'Prospecção concluída');
+            const semTel = found.filter(x => !x.nationalPhoneNumber).length;
+            log(`✔ ${i} empresas reais adicionadas${found.length - i ? ` (${found.length - i} já estavam na lista)` : ''}. ${semTel} sem telefone.`);
+            if (qtd > 60) log('ℹ O Google devolve no máximo 60 por busca. Mude o nicho/bairro pra buscar mais.');
+          } catch (e) { log('✖ ' + e.message); toast('Falha na busca do Google'); prog(0, 'Erro'); }
+          setBusy(false); return;
+        }
+        try {
+          if (true) {
+            for (let i = 0; i < 4; i++) { await new Promise(r => setTimeout(r, 350)); prog((i + 1) * 25, 'Buscando empresas…'); }
+            got = demoProspect(nicho, cidade, qtd);
+          } else {
+            const sys = 'Você é um agente de prospecção B2B no Brasil. Responda APENAS com um array JSON, sem texto extra. Cada item: {"nome","empresa","telefone","email"}. Dados plausíveis em português.';
+            while (got.length < qtd) {
+              const lote = Math.min(10, qtd - got.length);
+              const arr = await askLLM(sys, `Liste ${lote} empresas do nicho "${nicho}" em ${cidade}. Contatos diferentes dos já listados: ${got.map(g => g.empresa).slice(-15).join('; ') || 'nenhum'}.`);
+              arr.forEach(a => got.push({ nome: a.nome || 'Contato', empresa: a.empresa || 'Empresa', cidade, telefone: a.telefone || '', email: a.email || '' }));
+              prog(Math.min(100, got.length / qtd * 100), `Prospectando… ${Math.min(got.length, qtd)}/${qtd}`);
+              if (!arr.length) break;
+            }
+            got = got.slice(0, qtd);
+          }
+        } catch (e) {
+          log('⚠ ' + e.message);
+          got = demoProspect(nicho, cidade, qtd);
+        }
+        const seg = $('ag-seg').value;
+        const stamp = Date.now();
+        got.forEach((g, i) => pool.push({ id: stamp + i, ...g, segmento: seg, nicho, score: null, motivo: '', interessado: false, enviado: false }));
+        persist(); render(); prog(100, 'Prospecção concluída');
+        log(`✔ ${got.length} leads encontrados. Agora rode a qualificação.`);
+        setBusy(false);
+      }
+
+      // ---- Agente 2 ----
+      async function runQualify() {
+        if (busy) return;
+        const todo = pool.filter(l => l.score === null);
+        if (!todo.length) { toast('Nenhum lead novo pra qualificar'); return; }
+        const min = Math.max(10, Math.min(95, Number($('ag-min').value) || 70));
+        setBusy(true, 'Qualificando…');
+        const real = hasKey();
+        log(`\n▶ Agente 2: qualificando ${todo.length} leads (${real ? 'IA' : 'regras'}; demo = sorteio) — WhatsApp inativo`);
+        let done = 0;
+        for (let i = 0; i < todo.length; i += 10) {
+          const lote = todo.slice(i, i + 10);
+          let res;
+          try {
+            const fake = lote.filter(l => l.fake), reais = lote.filter(l => !l.fake);
+            res = fake.length ? demoQualify(fake) : [];
+            if (reais.length) {
+              if (!real) res = res.concat(ruleQualify(reais));
+              else {
+                const sys = 'Você é um agente de qualificação de leads B2B. Use SOMENTE os dados fornecidos, não invente nada. Responda APENAS com array JSON: [{"id","score","motivo"}], score de 0 a 100 e motivo em até 12 palavras. Sem telefone = score máximo 39.';
+                try { res = res.concat(await askLLM(sys, 'Qualifique estes leads reais para a venda de uma plataforma de gestão/CRM com IA: ' + JSON.stringify(reais.map(l => ({ id: l.id, empresa: l.empresa, nicho: l.nicho, endereco: l.endereco, telefone: l.telefone || null, site: l.site || null, nota_google: l.rating, avaliacoes: l.reviews }))))); }
+                catch (e) { log('⚠ ' + e.message + ' — lote qualificado por regras'); res = res.concat(ruleQualify(reais)); }
+              }
+            }
+            await new Promise(r => setTimeout(r, 150));
+          } catch (e) { log('⚠ ' + e.message); res = ruleQualify(lote); }
+          res.forEach(r => { const l = pool.find(x => x.id === r.id); if (l) { l.score = Number(r.score) || 0; l.motivo = r.motivo || ''; l.interessado = l.score >= min; } });
+          done += lote.length; prog(done / todo.length * 100, `Qualificando… ${done}/${todo.length}`);
+        }
+        persist(); render();
+        const hot = todo.filter(l => l.interessado).length;
+        log(`✔ ${done} qualificados, ${hot} com interesse.`);
+        setBusy(false);
+      }
+
+      function sendToCRM() {
+        if (busy) return;
+        const hot = pool.filter(l => l.interessado && !l.enviado);
+        if (!hot.length) { toast('Nenhum interessado novo pra enviar'); return; }
+        let nextId = leads.length ? Math.max(...leads.map(l => l.id)) + 1 : 1;
+        hot.forEach(l => {
+          leads.push({ id: nextId++, nome: l.nome, empresa: l.empresa, cidade: l.cidade, segmento: l.segmento, telefone: l.telefone, email: l.email, valor: 6000, origem: 'Google', status: 'contato', obs: `${l.fake ? '[DEMO FICTÍCIO] ' : ''}Agente IA · nota ${l.score}. ${l.motivo}${l.site ? ' · ' + l.site : ''}${l.endereco ? ' · ' + l.endereco : ''}` });
+          l.enviado = true;
+        });
+        save(); persist(); renderAll(); render();
+        log(`✔ ${hot.length} interessados enviados pro CRM (etapa Contato).`);
+        toast(hot.length + ' leads enviados pro CRM');
+      }
+
+      function render() {
+        const q = pool.filter(l => l.score !== null), hot = pool.filter(l => l.interessado);
+        $('ag-n-pros').textContent = pool.length;
+        $('ag-n-qual').textContent = q.length;
+        $('ag-n-hot').textContent = hot.length;
+        $('ag-n-rate').textContent = (q.length ? hot.length / q.length * 100 : 0).toFixed(0) + '%';
+        const rows = pool.slice().sort((a, b) => (b.score ?? -1) - (a.score ?? -1)).slice(0, 100);
+        $('ag-table').innerHTML = rows.map(l => {
+          const cls = l.score === null ? '' : l.interessado ? 'ag-hot' : l.score >= 40 ? 'ag-warm' : 'ag-cold';
+          const st = l.score === null ? 'Aguardando' : l.enviado ? 'No CRM' : l.interessado ? 'Interessado' : l.score >= 40 ? 'Morno' : 'Frio';
+          return `<tr><td><strong>${escapeHTML(l.nome)}</strong>${l.fake ? '<span class="ag-tag-demo">DEMO</span>' : ''}<br><span style="color:var(--text-muted);font-size:12px">${escapeHTML(l.endereco || l.empresa)}</span></td><td>${escapeHTML(l.cidade)}</td><td>${escapeHTML(l.telefone || '—')}</td><td class="ag-score ${cls}">${l.score ?? '—'}</td><td>${st}</td><td style="font-size:12px;color:var(--text-muted)">${escapeHTML(l.motivo || '—')}</td></tr>`;
+        }).join('') || '<tr><td colspan="6" class="empty">Nenhum lead ainda.</td></tr>';
+      }
+
+      $('ag-run-pros').addEventListener('click', runProspect);
+      $('ag-run-qual').addEventListener('click', runQualify);
+      $('ag-save-crm').addEventListener('click', sendToCRM);
+      banner(); render();
+    })();
 
     // Sempre renderiza os dados (app já está visível por baixo do login)
     renderAll();
