@@ -1,0 +1,16 @@
+{
+  "name": "sm-solution-math-integration",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Backend inicial de integração do CRM SM Solution Math com Supabase e Meta APIs",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js" },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.0",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "zod": "^4.1.5"
+  }
+}
