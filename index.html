@@ -611,47 +611,53 @@
 
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
 
-    /* ===== SIDEBAR MOBILE: botão fechar + overlay ===== */
-    .sidebar-close { display:none; margin-left:auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text); font-size:18px; cursor:pointer; align-items:center; justify-content:center; flex-shrink:0; }
-    .sidebar-close:active { transform:scale(.92); }
-    .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(3,8,16,.6); backdrop-filter:blur(2px); z-index:45; opacity:0; transition:opacity .25s; }
-    @media (max-width:900px) {
-      .sidebar { height:100vh; height:100dvh; width:min(290px,86vw); visibility:hidden; transition:transform .3s cubic-bezier(.16,1,.3,1), visibility 0s .3s; box-shadow:none; }
-      .sidebar.open { visibility:visible; transition:transform .3s cubic-bezier(.16,1,.3,1), visibility 0s; box-shadow:8px 0 40px rgba(0,0,0,.5); }
-      .sidebar-close { display:flex; }
-      .sidebar-overlay { display:block; pointer-events:none; }
-      .sidebar-overlay.show { opacity:1; pointer-events:auto; }
-      .nav { -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
-      body.menu-open { overflow:hidden; }
-      .menu-toggle { padding:6px 8px; }
-    }
+    /* ===== EVOLUÇÃO DE PRODUTO ===== */
+    .dashboard-welcome{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 26px;margin-bottom:20px;border:1px solid rgba(75,133,232,.28);border-radius:16px;background:linear-gradient(115deg,rgba(34,75,137,.34),rgba(17,28,46,.72) 58%,rgba(6,182,212,.08));overflow:hidden;position:relative}
+    .dashboard-welcome:after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(111,164,255,.12);border-radius:50%;right:8%;top:-145px;box-shadow:0 0 0 28px rgba(111,164,255,.025),0 0 0 58px rgba(111,164,255,.02)}
+    .eyebrow{font-size:10px;font-weight:700;letter-spacing:.16em;color:#80b2ff;margin-bottom:8px}
+    .dashboard-welcome h2{font-size:clamp(20px,2.4vw,27px);letter-spacing:-.04em;margin-bottom:6px}
+    .dashboard-welcome p{font-size:13px;color:var(--text-muted)}
+    .welcome-mark{position:relative;z-index:1;display:flex;align-items:center;gap:10px;color:#fff;font-size:22px;font-weight:800;letter-spacing:-.06em}
+    .welcome-mark:before{content:"SM";display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,#4386f4,#1d4fba);font-size:17px;letter-spacing:-.04em;box-shadow:0 8px 20px rgba(47,111,224,.25)}
+    .welcome-mark span{font-size:11px;color:var(--text-muted);font-weight:500;letter-spacing:0;display:block}
+    .priority-panel{margin-top:20px}
+    .section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}
+    .section-heading h3{font-size:15px;margin-bottom:5px}
+    .section-heading p{font-size:12px;color:var(--text-muted)}
+    .priority-indicator{font-size:9px;letter-spacing:.1em;font-weight:700;color:#8db8ff;border:1px solid rgba(80,140,240,.28);padding:6px 9px;border-radius:999px;white-space:nowrap}
+    .priority-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .priority-item{background:rgba(4,12,24,.3);border:1px solid var(--border);border-radius:11px;padding:13px;min-width:0}
+    .priority-item strong{display:block;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .priority-item small{display:block;color:var(--text-muted);font-size:11px;margin:4px 0 10px}
+    .priority-item .priority-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .priority-item .priority-value{font-size:12px;color:var(--success);font-weight:700}
+    .priority-item button{border:0;background:transparent;color:#8db8ff;font-size:11px;font-weight:700;cursor:pointer;padding:4px}
+    .topbar-actions{gap:8px}
+    .topbar-actions .btn-sm{padding:8px 10px}
+    .sidebar-overlay{display:none}
+    .btn-danger-soft{background:rgba(239,68,68,.1)!important;color:#ff9292!important;border:1px solid rgba(239,68,68,.25)!important}
+    body.light-theme{--bg:#f3f6fb;--bg-card:#fff;--bg-hover:#edf2f9;--border:#dbe3ef;--text:#172338;--text-muted:#65758d;--shadow:0 8px 28px rgba(24,48,83,.08);background:var(--bg);color:var(--text)}
+    body.light-theme .sidebar{background:#fff;border-right-color:var(--border)}
+    body.light-theme .topbar{background:rgba(255,255,255,.88);border-bottom-color:var(--border)}
+    body.light-theme .stat-card,body.light-theme .ag-card,body.light-theme .login-card{background:#fff;border-color:var(--border)}
+    body.light-theme .dashboard-welcome{background:linear-gradient(115deg,#e5efff,#fff 65%,#e8faff);border-color:#d6e4fa}
+    body.light-theme .welcome-mark{color:#172338}
+    body.light-theme .priority-item{background:#f7f9fc}
+    body.light-theme .kanban-col{background:#fff}
+    body.light-theme .lead-card{background:#f8faff}
+    body.light-theme .login-hint{background:#f5f8fc}
+    @media(max-width:900px){.sidebar-overlay{display:block;position:fixed;inset:0;background:rgba(2,8,18,.62);backdrop-filter:blur(2px);z-index:45;opacity:0;visibility:hidden;transition:.25s}.sidebar-overlay.show{opacity:1;visibility:visible}.sidebar{z-index:50}.priority-list{grid-template-columns:1fr 1fr}.welcome-mark{display:none}}
+    @media(max-width:600px){.dashboard-welcome{padding:20px}.priority-list{grid-template-columns:1fr}.topbar-actions .btn-sm{font-size:11px;padding:7px}.topbar-actions{gap:5px}.topbar-title{max-width:38vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+    @media(prefers-reduced-motion:reduce){.dashboard-welcome:after{display:none}}
 
-    /* ===== AGENTES IA ===== */
-    .ag-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-    @media (max-width:900px) { .ag-grid { grid-template-columns:1fr; } }
-    .ag-card { background:linear-gradient(145deg,#142238,#101b2c); border:1px solid rgba(65,87,119,.55); border-radius:15px; padding:18px; box-shadow:var(--shadow); }
-    .ag-card h3 { font-size:15px; display:flex; align-items:center; gap:8px; margin-bottom:4px; }
-    .ag-card p.sub { color:var(--text-muted); font-size:12.5px; margin-bottom:14px; line-height:1.45; }
-    .ag-card label { display:block; font-size:12px; color:var(--text-muted); margin:10px 0 5px; }
-    .ag-card input, .ag-card select { width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); padding:10px 12px; font-size:14px; outline:none; }
-    .ag-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .ag-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
-    .ag-dot { width:8px; height:8px; border-radius:50%; background:var(--text-muted); display:inline-block; }
-    .ag-dot.on { background:var(--success); box-shadow:0 0 8px var(--success); animation:agPulse 1s infinite; }
-    @keyframes agPulse { 50% { opacity:.4; } }
-    .ag-switch { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; border:1px dashed var(--border); border-radius:10px; margin-top:12px; font-size:13px; opacity:.75; }
-    .ag-switch .pill { font-size:11px; padding:3px 9px; border-radius:999px; background:rgba(139,155,180,.15); color:var(--text-muted); font-weight:600; }
-    .ag-log { background:#070d18; border:1px solid var(--border); border-radius:10px; padding:12px; font:12px/1.55 ui-monospace,Menlo,Consolas,monospace; max-height:150px; overflow:auto; color:#9fb4d1; }
-    .ag-bar { height:8px; background:var(--bg); border-radius:8px; overflow:hidden; margin-top:10px; }
-    .ag-bar > div { height:100%; width:0; background:linear-gradient(90deg,#3979ee,#06b6d4); transition:width .3s; }
-    .ag-score { font-weight:700; }
-    .ag-hot { color:var(--success); } .ag-warm { color:var(--warning); } .ag-cold { color:var(--danger); }
-    .ag-note { font-size:11.5px; color:var(--text-muted); margin-top:10px; line-height:1.45; }
-    .ag-banner { padding:11px 14px; border-radius:10px; font-size:12.5px; line-height:1.45; margin-bottom:16px; border:1px solid; }
-    .ag-banner.demo { background:rgba(245,158,11,.1); border-color:rgba(245,158,11,.4); color:#fbbf24; }
-    .ag-banner.real { background:rgba(34,197,94,.1); border-color:rgba(34,197,94,.4); color:#4ade80; }
-    .ag-tag-demo { font-size:10px; font-weight:700; padding:2px 6px; border-radius:6px; background:rgba(245,158,11,.18); color:#fbbf24; margin-left:6px; }
-    details.ag-cfg summary { cursor:pointer; font-size:13px; color:var(--text-muted); padding:4px 0; }
+  
+    /* Perfil e integrações */
+    .settings-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:4px 0 20px;padding:22px 24px;border:1px solid rgba(75,133,232,.25);border-radius:15px;background:linear-gradient(110deg,rgba(34,75,137,.25),rgba(17,28,46,.5))}
+    .settings-intro h2{font-size:22px;letter-spacing:-.04em;margin-bottom:5px}.settings-intro p{font-size:12px;color:var(--text-muted)}.settings-mark{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:linear-gradient(145deg,#4386f4,#1d4fba);font-weight:800;color:white}
+    .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.settings-card{padding:22px;min-width:0}.settings-card-head{display:flex;gap:12px;align-items:center;margin-bottom:20px}.settings-card-head h3{font-size:15px;margin-bottom:4px}.settings-card-head p{font-size:11px;color:var(--text-muted);line-height:1.5}.settings-icon{width:40px;height:40px;flex:0 0 40px;display:grid;place-items:center;border-radius:12px;background:rgba(59,130,246,.14);color:#83b1ff;font-size:20px}.whatsapp-icon{background:rgba(37,211,102,.13);color:#25d366}.settings-form .form-group{margin-bottom:14px}.settings-form label{display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px}.settings-form input,.settings-form textarea{width:100%;background:var(--bg);border:1px solid var(--border);padding:11px 12px;color:var(--text);font:13px Inter,sans-serif;outline:none}.settings-form input:focus,.settings-form textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,.12)}.settings-form small{display:block;margin-top:6px;color:var(--text-muted);font-size:10px}.settings-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px}.settings-note{font-size:10px;color:var(--text-muted)}.btn-whatsapp{background:#168b4a!important;color:white!important;border:1px solid #1eaa5b!important}.integration-status{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:18px;font-size:11px}.status-dot{width:8px;height:8px;border-radius:50%;background:#f59e0b}.status-dot.connected{background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.1)}.status-pill{margin-left:auto;font-size:9px;font-weight:800;letter-spacing:.08em;color:#fbbf24}.status-pill.connected{color:#4ade80}.api-notice{margin-top:18px;padding:13px;border:1px solid rgba(59,130,246,.22);border-radius:10px;background:rgba(59,130,246,.06)}.api-notice strong{font-size:11px}.api-notice p{font-size:10px;line-height:1.6;color:var(--text-muted);margin:6px 0 9px}.api-notice a{font-size:10px;color:#83b1ff;text-decoration:none}.api-notice a:hover{text-decoration:underline}
+    body.light-theme .settings-intro{background:linear-gradient(110deg,#e5efff,#fff);border-color:#d6e4fa}body.light-theme .api-notice{background:#f2f7ff}
+    @media(max-width:900px){.settings-grid{grid-template-columns:1fr}.settings-intro{padding:18px}.settings-card{padding:18px}}
+
   </style>
 </head>
 <body>
@@ -694,6 +700,7 @@
   </div>
 
   <!-- ========== APP ========== -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
   <div id="app">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
@@ -702,7 +709,6 @@
           Solution Math
           <span>Gestão empresarial</span>
         </div>
-        <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Fechar menu">✕</button>
       </div>
       <nav class="nav">
         <div class="nav-section">
@@ -720,10 +726,6 @@
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
             Lista de Leads
           </a>
-          <a class="nav-item" data-view="agentes">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Agentes IA
-          </a>
         </div>
         <div class="nav-section">
           <div class="nav-label">Gestão</div>
@@ -739,6 +741,10 @@
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a2 2 0 01.707.293l5.414 5.414a2 2 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             Relatórios
           </a>
+          <a class="nav-item" data-view="configuracoes">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06-1.7 2.94-.08-.02a1.7 1.7 0 00-1.75.58l-.05.07h-3.4l-.04-.08a1.7 1.7 0 00-1.6-.96 1.7 1.7 0 00-1.2.5l-.06.06-2.94-1.7.02-.08a1.7 1.7 0 00-.58-1.75l-.07-.05v-3.4l.08-.04a1.7 1.7 0 00.46-2.8l-.06-.06 1.7-2.94.08.02a1.7 1.7 0 001.75-.58l.05-.07h3.4l.04.08a1.7 1.7 0 002.8.46l.06-.06 2.94 1.7-.02.08a1.7 1.7 0 00.58 1.75l.07.05V15z"/></svg>
+            Perfil e integrações
+          </a>
         </div>
       </nav>
       <div class="sidebar-footer">
@@ -749,8 +755,6 @@
       </div>
     </aside>
 
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
     <div class="main">
       <header class="topbar">
         <div style="display:flex;align-items:center;gap:12px;">
@@ -758,6 +762,9 @@
           <h1 class="topbar-title" id="page-title">Dashboard</h1>
         </div>
         <div class="topbar-actions">
+          <button class="btn btn-ghost btn-sm" id="btn-theme" type="button" title="Alternar tema" aria-label="Alternar tema">☼ Tema</button>
+          <button class="btn btn-ghost btn-sm" id="btn-backup" type="button" title="Exportar backup">Backup</button>
+          <input id="backup-import" type="file" accept="application/json,.json" hidden>
           <button class="btn btn-primary" id="btn-new-lead">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             Novo Lead
@@ -769,6 +776,10 @@
       <div class="content">
         <!-- DASHBOARD -->
         <div class="view active" id="view-dashboard">
+          <section class="dashboard-welcome">
+            <div><div class="eyebrow">PAINEL DE CONTROLE</div><h2 id="dashboard-greeting">Visão geral do negócio</h2><p id="dashboard-date">Acompanhe leads, oportunidades e resultados em um só lugar.</p></div>
+            <div class="welcome-mark">SM<span>Solution Math</span></div>
+          </section>
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-label">Leads ativos</div>
@@ -781,9 +792,9 @@
               <div class="stat-trend up">em andamento</div>
             </div>
             <div class="stat-card">
-              <div class="stat-label">Fechados (mês)</div>
+              <div class="stat-label">Clientes fechados</div>
               <div class="stat-value" id="stat-fechados">0</div>
-              <div class="stat-trend up">conversão</div>
+              <div class="stat-trend up">no total</div>
             </div>
             <div class="stat-card">
               <div class="stat-label">Valor em pipeline</div>
@@ -801,6 +812,10 @@
               <div id="recent-activity" style="font-size:13px;color:var(--text-muted);"></div>
             </div>
           </div>
+          <section class="stat-card priority-panel">
+            <div class="section-heading"><div><h3>Prioridades comerciais</h3><p>Oportunidades com maior valor estimado para acompanhar.</p></div><span class="priority-indicator">ACOMPANHAMENTO</span></div>
+            <div id="priority-list" class="priority-list"></div>
+          </section>
         </div>
 
         <!-- PROSPECÇÃO -->
@@ -883,89 +898,38 @@
           <div class="table-wrap"><table><thead><tr><th>Contato / Empresa</th><th>Cidade</th><th>Telefone</th><th>E-mail</th><th>Contrato</th><th></th></tr></thead><tbody id="clients-table"></tbody></table></div>
         </div>
 
-
-        <!-- AGENTES IA -->
-        <div class="view" id="view-agentes">
-          <div class="toolbar" style="justify-content:space-between;">
-            <div><h2 style="font-size:18px;margin-bottom:5px;">Agentes de IA</h2><p style="color:var(--text-muted);font-size:13px;">Um agente prospecta, o outro qualifica. Os interessados vão pro CRM.</p></div>
-            <span style="font-size:12px;color:var(--text-muted)"><span class="ag-dot" id="ag-dot"></span> <span id="ag-status">Parado</span></span>
-          </div>
-
-          <div class="ag-banner demo" id="ag-banner"></div>
-
-          <div class="stats-grid">
-            <div class="stat-card"><div class="stat-label">Prospectados</div><div class="stat-value" id="ag-n-pros">0</div></div>
-            <div class="stat-card"><div class="stat-label">Qualificados</div><div class="stat-value" id="ag-n-qual">0</div></div>
-            <div class="stat-card"><div class="stat-label">Com interesse</div><div class="stat-value" id="ag-n-hot" style="color:var(--success)">0</div></div>
-            <div class="stat-card"><div class="stat-label">Taxa de interesse</div><div class="stat-value" id="ag-n-rate">0%</div></div>
-          </div>
-
-          <div class="ag-grid">
-            <div class="ag-card">
-              <h3>🔎 Agente 1 · Prospecção</h3>
-              <p class="sub">Busca empresas que combinam com o nicho que você escolher.</p>
-              <label>O que prospectar hoje?</label>
-              <input id="ag-nicho" type="text" placeholder="Ex.: clínicas, oficinas, transportadoras" value="Clínicas e consultórios">
-              <div class="ag-row">
-                <div><label>Cidade</label><input id="ag-cidade" type="text" value="São Paulo"></div>
-                <div><label>Quantidade</label><input id="ag-qtd" type="number" min="1" max="100" value="30"></div>
-              </div>
-              <label>Segmento no CRM</label>
-              <select id="ag-seg"><option>Saúde</option><option>Comércio</option><option>Serviços</option><option>Indústria</option><option>Logística</option><option>Outros</option></select>
-              <div class="ag-actions"><button class="btn btn-primary" id="ag-run-pros">Rodar prospecção</button></div>
-            </div>
-
-            <div class="ag-card">
-              <h3>✅ Agente 2 · Qualificação</h3>
-              <p class="sub">Dá nota de 0 a 100 pra cada lead e marca quem demonstrou interesse.</p>
-              <label>Nota mínima pra considerar interessado</label>
-              <input id="ag-min" type="number" min="10" max="95" value="70">
-              <div class="ag-switch"><span>📱 Contato por WhatsApp</span><span class="pill">Inativo na demo</span></div>
-              <p class="ag-note">Na versão instalada, o agente chama o lead pelo WhatsApp. Na demo fica desligado.</p>
-              <div class="ag-actions">
-                <button class="btn btn-primary" id="ag-run-qual">Qualificar leads</button>
-                <button class="btn btn-ghost" id="ag-save-crm">Enviar interessados pro CRM</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="ag-card" style="margin-bottom:16px;">
-            <details class="ag-cfg" open>
-              <summary>⚙️ Conexões (fonte de dados reais + IA)</summary>
-              <label>Chave do Google Maps Places API (prospecção REAL)</label>
-              <input id="ag-gkey" type="password" placeholder="Cole a chave do Google Cloud aqui">
-              <p class="ag-note">Traz empresas reais (nome, telefone, site, avaliações). Máx. 60 por busca. Sem essa chave, a prospecção roda em modo demo com dados fictícios.</p>
-              <div class="ag-row">
-                <div><label>URL da API (padrão OpenAI)</label><input id="ag-url" type="text" value="https://api.z.ai/api/paas/v4/chat/completions"></div>
-                <div><label>Modelo</label><input id="ag-model" type="text" value="glm-4.6"></div>
-              </div>
-              <label>Chave da IA (opcional, melhora a qualificação)</label>
-              <input id="ag-key" type="password" placeholder="Cole a chave aqui (fica só neste aparelho)">
-              <p class="ag-note">Os leads reais vêm do Google. A chave da IA só serve pra dar a nota; sem ela a nota é calculada por regras (telefone, site, avaliações). Em produção as chaves devem ficar no servidor, não no navegador.</p>
-              <div class="ag-actions"><button class="btn btn-ghost btn-sm" id="ag-save-cfg">Salvar conexão</button></div>
-            </details>
-          </div>
-
-          <div class="ag-card" style="margin-bottom:16px;">
-            <div id="ag-prog-label" style="font-size:12px;color:var(--text-muted)">Aguardando</div>
-            <div class="ag-bar"><div id="ag-prog"></div></div>
-            <div class="ag-log" id="ag-log" style="margin-top:12px;">Pronto. Escolha o nicho e rode a prospecção.</div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Lead</th><th>Cidade</th><th>Telefone</th><th>Nota</th><th>Status</th><th>Motivo</th></tr></thead>
-              <tbody id="ag-table"><tr><td colspan="6" class="empty">Nenhum lead ainda.</td></tr></tbody>
-            </table>
-          </div>
-        </div>
-
         <!-- RELATÓRIOS -->
         <div class="view" id="view-relatorios">
           <div class="toolbar" style="justify-content:space-between;"><div><h2 style="font-size:18px;margin-bottom:5px;">Relatórios de desempenho</h2><p style="color:var(--text-muted);font-size:13px;">Indicadores calculados a partir dos leads e lançamentos cadastrados.</p></div><button class="btn btn-primary" id="btn-export-report">Exportar leads CSV</button></div>
           <div class="stats-grid"><div class="stat-card"><div class="stat-label">Total de oportunidades</div><div class="stat-value" id="rep-total">0</div></div><div class="stat-card"><div class="stat-label">Taxa de conversão</div><div class="stat-value" id="rep-conversion">0%</div></div><div class="stat-card"><div class="stat-label">Valor ganho</div><div class="stat-value" id="rep-won">R$ 0</div></div><div class="stat-card"><div class="stat-label">Valor perdido</div><div class="stat-value" id="rep-lost">R$ 0</div></div></div>
           <div class="stat-card"><h3 style="font-size:15px;margin-bottom:18px;">Distribuição do funil</h3><div id="report-funnel" style="display:flex;flex-direction:column;gap:14px;"></div></div>
           <div class="stat-card" style="margin-top:18px;"><h3 style="font-size:15px;margin-bottom:14px;">Desempenho por segmento</h3><div id="report-segments" style="display:flex;flex-direction:column;gap:12px;"></div></div>
+        </div>
+
+        <!-- PERFIL E INTEGRACOES -->
+        <div class="view" id="view-configuracoes">
+          <div class="settings-intro"><div><div class="eyebrow">CONFIGURAÇÕES DA CONTA</div><h2>Perfil e integrações</h2><p>Atualize seus dados e configure o canal de atendimento da empresa.</p></div><div class="settings-mark">SM</div></div>
+          <div class="settings-grid">
+            <section class="stat-card settings-card">
+              <div class="settings-card-head"><div class="settings-icon">♙</div><div><h3>Meu perfil</h3><p>Essas informações aparecem na sua área de trabalho.</p></div></div>
+              <form id="profile-form" class="settings-form">
+                <div class="form-row"><div class="form-group"><label for="profile-name">Nome completo</label><input id="profile-name" required maxlength="80" placeholder="Seu nome"></div><div class="form-group"><label for="profile-role">Cargo</label><input id="profile-role" maxlength="60" placeholder="Ex.: Comercial"></div></div>
+                <div class="form-row"><div class="form-group"><label for="profile-email">E-mail</label><input id="profile-email" type="email" maxlength="120" placeholder="voce@empresa.com"></div><div class="form-group"><label for="profile-phone">Telefone</label><input id="profile-phone" inputmode="tel" maxlength="20" placeholder="(11) 99999-9999"></div></div>
+                <div class="form-group"><label for="profile-company">Empresa</label><input id="profile-company" maxlength="100" placeholder="SM Solution Math"></div>
+                <div class="settings-actions"><span class="settings-note" id="profile-feedback">Alterações salvas somente neste navegador.</span><button class="btn btn-primary" type="submit">Salvar perfil</button></div>
+              </form>
+            </section>
+            <section class="stat-card settings-card whatsapp-card">
+              <div class="settings-card-head"><div class="settings-icon whatsapp-icon">✆</div><div><h3>WhatsApp Business</h3><p>Configure o número comercial para abrir conversas direto pelo CRM.</p></div></div>
+              <div class="integration-status"><span class="status-dot" id="wa-status-dot"></span><span id="wa-status-text">Número não configurado</span><span class="status-pill" id="wa-status-pill">PENDENTE</span></div>
+              <form id="whatsapp-form" class="settings-form">
+                <div class="form-group"><label for="wa-number">Número do WhatsApp Business</label><input id="wa-number" inputmode="tel" maxlength="20" placeholder="5511999999999" autocomplete="tel"><small>Informe país + DDD + número, somente números. Ex.: 5511999999999.</small></div>
+                <div class="form-group"><label for="wa-message">Mensagem inicial</label><textarea id="wa-message" rows="3" maxlength="500" placeholder="Olá! Vim pelo atendimento da SM Solution Math."></textarea></div>
+                <div class="settings-actions"><button class="btn btn-ghost" type="button" id="wa-test">Testar conversa</button><button class="btn btn-whatsapp" type="submit">Salvar WhatsApp</button></div>
+              </form>
+              <div class="api-notice"><strong>Integração oficial da plataforma</strong><p>Este protótipo configura links de conversa (wa.me). Para receber mensagens dentro do sistema, enviar modelos e automatizar atendimentos pela API oficial do WhatsApp Business, será necessário configurar a Meta Cloud API em um backend seguro. Não coloque tokens ou senhas aqui.</p><a href="https://developers.facebook.com/docs/whatsapp/cloud-api/" target="_blank" rel="noopener">Documentação da WhatsApp Cloud API ↗</a></div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
@@ -1327,7 +1291,7 @@
       recent.innerHTML = last.map(l => `
         <div style="padding:8px 0;border-bottom:1px solid var(--border);">
           <strong style="color:var(--text);">${escapeHTML(l.nome)}</strong> — ${escapeHTML(l.empresa)}<br>
-          <span style="font-size:12px;">Status: ${STAGES.find(s=>s.id===l.status)?.label} · ${l.cidade || ''}</span>
+          <span style="font-size:12px;">Status: ${STAGES.find(s=>s.id===l.status)?.label} · ${escapeHTML(l.cidade || '')}</span>
         </div>
       `).join('') || 'Nenhuma atividade recente.';
     }
@@ -1336,9 +1300,9 @@
       const cidades = [...new Set(leads.map(l => l.cidade).filter(Boolean))].sort();
       const sel = document.getElementById('filter-cidade');
       const current = sel.value;
-      sel.innerHTML = '<option value="">Todas as cidades</option>' +
-        cidades.map(c => `<option value="${c}">${c}</option>`).join('');
-      sel.value = current;
+      sel.replaceChildren(new Option('Todas as cidades', ''));
+      cidades.forEach(c => sel.add(new Option(c, c)));
+      sel.value = cidades.includes(current) ? current : '';
     }
 
     function renderAll() {
@@ -1406,11 +1370,11 @@
 
       if (editingId) {
         const idx = leads.findIndex(l => l.id === editingId);
-        leads[idx] = { ...leads[idx], ...data };
+        leads[idx] = { ...leads[idx], ...data, updatedAt: new Date().toISOString() };
         toast('Lead atualizado');
       } else {
         const newId = leads.length ? Math.max(...leads.map(l => l.id)) + 1 : 1;
-        leads.push({ id: newId, ...data });
+        leads.push({ id: newId, ...data, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });
         toast('Lead criado com sucesso');
       }
       save();
@@ -1450,7 +1414,7 @@
         const view = item.dataset.view;
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
         document.getElementById('view-' + view).classList.add('active');
-        const titles = { dashboard: 'Dashboard', prospeccao: 'Prospecção de Leads', lista: 'Lista de Leads', financeiro: 'Financeiro', clientes: 'Clientes', relatorios: 'Relatórios', agentes: 'Agentes IA' };
+        const titles = { dashboard: 'Dashboard', prospeccao: 'Prospecção de Leads', lista: 'Lista de Leads', financeiro: 'Financeiro', clientes: 'Clientes', relatorios: 'Relatórios', configuracoes: 'Perfil e integrações' };
         document.getElementById('page-title').textContent = titles[view] || 'Dashboard';
       });
     });
@@ -1469,19 +1433,6 @@
     document.getElementById('filter-segmento').addEventListener('change', renderAll);
     document.getElementById('search-lista').addEventListener('input', renderAll);
     document.getElementById('filter-status-lista').addEventListener('change', renderAll);
-
-    // ---- Sidebar mobile ----
-    const sidebarEl = document.getElementById('sidebar');
-    const overlayEl = document.getElementById('sidebar-overlay');
-    function openSidebar(){ sidebarEl.classList.add('open'); overlayEl.classList.add('show'); document.body.classList.add('menu-open'); }
-    function closeSidebar(){ sidebarEl.classList.remove('open'); overlayEl.classList.remove('show'); document.body.classList.remove('menu-open'); }
-    document.getElementById('menu-toggle').addEventListener('click', () => sidebarEl.classList.contains('open') ? closeSidebar() : openSidebar());
-    document.getElementById('sidebar-close').addEventListener('click', closeSidebar);
-    overlayEl.addEventListener('click', closeSidebar);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
-    window.addEventListener('resize', () => { if (window.innerWidth > 900) closeSidebar(); });
-    document.querySelectorAll('.nav-item[data-view]').forEach(i => i.addEventListener('click', () => { if (window.innerWidth <= 900) closeSidebar(); }));
-    document.getElementById('btn-logout').addEventListener('click', closeSidebar);
 
     document.getElementById('btn-new-transaction').addEventListener('click', openTransaction);
     document.getElementById('transaction-close').addEventListener('click', closeTransaction);
@@ -1509,227 +1460,106 @@
       setTimeout(() => ripple.remove(), 500);
     });
 
-
-    // ========== AGENTES IA (PROSPECÇÃO + QUALIFICAÇÃO) ==========
-    (function(){
-      const $ = id => document.getElementById(id);
-      let pool = JSON.parse(localStorage.getItem('sm_ag_pool') || '[]');
-      let busy = false;
-      const cfg = JSON.parse(localStorage.getItem('sm_ag_cfg') || '{}');
-      if (cfg.url) $('ag-url').value = cfg.url;
-      if (cfg.model) $('ag-model').value = cfg.model;
-      if (cfg.key) $('ag-key').value = cfg.key;
-      if (cfg.gkey) $('ag-gkey').value = cfg.gkey;
-
-      const persist = () => localStorage.setItem('sm_ag_pool', JSON.stringify(pool));
-      const log = m => { const l = $('ag-log'); l.textContent += '\n' + m; l.scrollTop = l.scrollHeight; };
-      const prog = (p, label) => { $('ag-prog').style.width = p + '%'; if (label) $('ag-prog-label').textContent = label; };
-      const setBusy = (b, txt) => { busy = b; $('ag-dot').classList.toggle('on', b); $('ag-status').textContent = b ? txt : 'Parado'; ['ag-run-pros','ag-run-qual','ag-save-crm'].forEach(i => $(i).disabled = b); };
-      const hasKey = () => $('ag-key').value.trim().length > 8;
-      const hasGoogle = () => $('ag-gkey').value.trim().length > 8;
-      function banner() {
-        const b = $('ag-banner');
-        if (hasGoogle()) { b.className = 'ag-banner real'; b.textContent = '✔ Prospecção REAL: empresas do Google Maps. A nota é calculada por regras ou pela IA, e mede potencial, não interesse confirmado.'; }
-        else { b.className = 'ag-banner demo'; b.textContent = '⚠ MODO DEMO: nomes, telefones e notas são FICTÍCIOS. Cole a chave do Google Maps em “Conexões” pra prospectar empresas reais.'; }
-      }
-      $('ag-gkey').addEventListener('input', banner);
-      async function googleSearch(query, qtd) {
-        const out = []; let token = null;
-        do {
-          const body = { textQuery: query, languageCode: 'pt-BR', regionCode: 'BR', pageSize: 20 };
-          if (token) body.pageToken = token;
-          const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': $('ag-gkey').value.trim(), 'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.businessStatus,nextPageToken' },
-            body: JSON.stringify(body)
-          });
-          if (!res.ok) { let m = 'erro ' + res.status; try { m = (await res.json()).error?.message || m; } catch (e) {} throw new Error('Google: ' + m); }
-          const data = await res.json();
-          (data.places || []).forEach(x => { if (!x.businessStatus || x.businessStatus === 'OPERATIONAL') out.push(x); });
-          token = data.nextPageToken;
-          prog(Math.min(95, out.length / qtd * 100), `Buscando no Google Maps… ${Math.min(out.length, qtd)}/${qtd}`);
-        } while (token && out.length < qtd);
-        return out.slice(0, qtd);
-      }
-      function ruleQualify(items) {
-        return items.map(l => {
-          let sc = 20; const why = [];
-          if (l.telefone) { sc += 25; why.push('tem telefone'); } else why.push('sem telefone');
-          if (l.site) { sc += 15; why.push('tem site'); }
-          if (l.rating >= 4.5) sc += 20; else if (l.rating >= 4) sc += 12; else if (l.rating >= 3.5) sc += 5;
-          if (l.rating) why.push(`nota ${l.rating} (${l.reviews || 0} aval.)`);
-          if (l.reviews >= 100) sc += 15; else if (l.reviews >= 30) sc += 8;
-          sc = Math.max(0, Math.min(98, sc));
-          if (!l.telefone) sc = Math.min(sc, 39);
-          return { id: l.id, score: sc, motivo: why.join(', ') };
-        });
-      }
-      const rnd = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
-      const pick = arr => arr[rnd(0, arr.length - 1)];
-
-      $('ag-save-cfg').addEventListener('click', () => {
-        localStorage.setItem('sm_ag_cfg', JSON.stringify({ url: $('ag-url').value.trim(), model: $('ag-model').value.trim(), key: $('ag-key').value.trim(), gkey: $('ag-gkey').value.trim() }));
-        banner(); toast('Conexão salva neste aparelho');
-      });
-
-      async function askLLM(system, user) {
-        const res = await fetch($('ag-url').value.trim(), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + $('ag-key').value.trim() },
-          body: JSON.stringify({ model: $('ag-model').value.trim(), temperature: 0.7, messages: [{ role: 'system', content: system }, { role: 'user', content: user }] })
-        });
-        if (!res.ok) throw new Error('API respondeu ' + res.status);
-        const data = await res.json();
-        const text = data.choices?.[0]?.message?.content || '';
-        const m = text.match(/\[[\s\S]*\]/);
-        if (!m) throw new Error('Resposta sem JSON');
-        return JSON.parse(m[0]);
-      }
-
-      // ---- modo demo (sem API) ----
-      const FIRST = ['Carlos','Fernanda','Ricardo','Patrícia','Marcos','Juliana','André','Luciana','Rafael','Camila','Bruno','Aline','Eduardo','Tatiane','Felipe','Renata'];
-      const LAST = ['Almeida','Souza','Lima','Ferreira','Rocha','Martins','Barbosa','Ribeiro','Carvalho','Nunes','Teixeira','Moreira'];
-      function demoProspect(nicho, cidade, n) {
-        const base = nicho.split(/[,\/]| e /)[0].trim() || 'Empresa';
-        const tags = ['Premium','Center','Pró','Total','Express','Vida','Master','Plus','Ideal','Alfa'];
-        return Array.from({ length: n }, () => {
-          const nome = pick(FIRST) + ' ' + pick(LAST);
-          return { nome, empresa: base.charAt(0).toUpperCase() + base.slice(1) + ' ' + pick(tags), cidade, telefone: '(11) 90000-0000', email: '', fake: true };
-        });
-      }
-      const REASONS_HOT = ['Perfil bate com o produto e porte ideal','Empresa em crescimento, decisor identificado','Já usa ferramentas parecidas, abertura alta','Região com alta demanda pelo serviço'];
-      const REASONS_MID = ['Interesse possível, falta confirmar decisor','Porte pequeno, precisa de mais contexto'];
-      const REASONS_LOW = ['Fora do perfil de cliente ideal','Baixa chance de compra no momento','Sem sinais de demanda'];
-      function demoQualify(items) {
-        return items.map(l => {
-          const r = Math.random();
-          const score = r < 0.2 ? rnd(72, 96) : r < 0.55 ? rnd(40, 69) : rnd(8, 39);
-          return { id: l.id, score, motivo: score >= 70 ? pick(REASONS_HOT) : score >= 40 ? pick(REASONS_MID) : pick(REASONS_LOW) };
-        });
-      }
-
-      // ---- Agente 1 ----
-      async function runProspect() {
-        if (busy) return;
-        const nicho = $('ag-nicho').value.trim(), cidade = $('ag-cidade').value.trim();
-        const qtd = Math.max(1, Math.min(100, Number($('ag-qtd').value) || 30));
-        if (!nicho) { toast('Informe o que prospectar'); return; }
-        setBusy(true, 'Prospectando…');
-        const g = hasGoogle();
-        log(`\n▶ Agente 1: ${qtd} leads de "${nicho}" em ${cidade || 'qualquer cidade'} (${g ? 'Google Maps — REAL' : 'modo demo — fictício'})`);
-        let got = [];
-        if (g) {
-          try {
-            const found = await googleSearch(`${nicho} em ${cidade}`.trim(), Math.min(qtd, 60));
-            const have = new Set(pool.map(x => x.gid));
-            const seg = $('ag-seg').value, stamp = Date.now();
-            let i = 0;
-            found.forEach(x => { if (have.has(x.id)) return; pool.push({ id: stamp + (i++), gid: x.id, nome: x.displayName?.text || 'Empresa', empresa: x.displayName?.text || 'Empresa', cidade, endereco: x.formattedAddress || '', telefone: x.nationalPhoneNumber || '', email: '', site: x.websiteUri || '', rating: x.rating || 0, reviews: x.userRatingCount || 0, segmento: seg, nicho, fake: false, score: null, motivo: '', interessado: false, enviado: false }); });
-            persist(); render(); prog(100, 'Prospecção concluída');
-            const semTel = found.filter(x => !x.nationalPhoneNumber).length;
-            log(`✔ ${i} empresas reais adicionadas${found.length - i ? ` (${found.length - i} já estavam na lista)` : ''}. ${semTel} sem telefone.`);
-            if (qtd > 60) log('ℹ O Google devolve no máximo 60 por busca. Mude o nicho/bairro pra buscar mais.');
-          } catch (e) { log('✖ ' + e.message); toast('Falha na busca do Google'); prog(0, 'Erro'); }
-          setBusy(false); return;
-        }
-        try {
-          if (true) {
-            for (let i = 0; i < 4; i++) { await new Promise(r => setTimeout(r, 350)); prog((i + 1) * 25, 'Buscando empresas…'); }
-            got = demoProspect(nicho, cidade, qtd);
-          } else {
-            const sys = 'Você é um agente de prospecção B2B no Brasil. Responda APENAS com um array JSON, sem texto extra. Cada item: {"nome","empresa","telefone","email"}. Dados plausíveis em português.';
-            while (got.length < qtd) {
-              const lote = Math.min(10, qtd - got.length);
-              const arr = await askLLM(sys, `Liste ${lote} empresas do nicho "${nicho}" em ${cidade}. Contatos diferentes dos já listados: ${got.map(g => g.empresa).slice(-15).join('; ') || 'nenhum'}.`);
-              arr.forEach(a => got.push({ nome: a.nome || 'Contato', empresa: a.empresa || 'Empresa', cidade, telefone: a.telefone || '', email: a.email || '' }));
-              prog(Math.min(100, got.length / qtd * 100), `Prospectando… ${Math.min(got.length, qtd)}/${qtd}`);
-              if (!arr.length) break;
-            }
-            got = got.slice(0, qtd);
-          }
-        } catch (e) {
-          log('⚠ ' + e.message);
-          got = demoProspect(nicho, cidade, qtd);
-        }
-        const seg = $('ag-seg').value;
-        const stamp = Date.now();
-        got.forEach((g, i) => pool.push({ id: stamp + i, ...g, segmento: seg, nicho, score: null, motivo: '', interessado: false, enviado: false }));
-        persist(); render(); prog(100, 'Prospecção concluída');
-        log(`✔ ${got.length} leads encontrados. Agora rode a qualificação.`);
-        setBusy(false);
-      }
-
-      // ---- Agente 2 ----
-      async function runQualify() {
-        if (busy) return;
-        const todo = pool.filter(l => l.score === null);
-        if (!todo.length) { toast('Nenhum lead novo pra qualificar'); return; }
-        const min = Math.max(10, Math.min(95, Number($('ag-min').value) || 70));
-        setBusy(true, 'Qualificando…');
-        const real = hasKey();
-        log(`\n▶ Agente 2: qualificando ${todo.length} leads (${real ? 'IA' : 'regras'}; demo = sorteio) — WhatsApp inativo`);
-        let done = 0;
-        for (let i = 0; i < todo.length; i += 10) {
-          const lote = todo.slice(i, i + 10);
-          let res;
-          try {
-            const fake = lote.filter(l => l.fake), reais = lote.filter(l => !l.fake);
-            res = fake.length ? demoQualify(fake) : [];
-            if (reais.length) {
-              if (!real) res = res.concat(ruleQualify(reais));
-              else {
-                const sys = 'Você é um agente de qualificação de leads B2B. Use SOMENTE os dados fornecidos, não invente nada. Responda APENAS com array JSON: [{"id","score","motivo"}], score de 0 a 100 e motivo em até 12 palavras. Sem telefone = score máximo 39.';
-                try { res = res.concat(await askLLM(sys, 'Qualifique estes leads reais para a venda de uma plataforma de gestão/CRM com IA: ' + JSON.stringify(reais.map(l => ({ id: l.id, empresa: l.empresa, nicho: l.nicho, endereco: l.endereco, telefone: l.telefone || null, site: l.site || null, nota_google: l.rating, avaliacoes: l.reviews }))))); }
-                catch (e) { log('⚠ ' + e.message + ' — lote qualificado por regras'); res = res.concat(ruleQualify(reais)); }
-              }
-            }
-            await new Promise(r => setTimeout(r, 150));
-          } catch (e) { log('⚠ ' + e.message); res = ruleQualify(lote); }
-          res.forEach(r => { const l = pool.find(x => x.id === r.id); if (l) { l.score = Number(r.score) || 0; l.motivo = r.motivo || ''; l.interessado = l.score >= min; } });
-          done += lote.length; prog(done / todo.length * 100, `Qualificando… ${done}/${todo.length}`);
-        }
-        persist(); render();
-        const hot = todo.filter(l => l.interessado).length;
-        log(`✔ ${done} qualificados, ${hot} com interesse.`);
-        setBusy(false);
-      }
-
-      function sendToCRM() {
-        if (busy) return;
-        const hot = pool.filter(l => l.interessado && !l.enviado);
-        if (!hot.length) { toast('Nenhum interessado novo pra enviar'); return; }
-        let nextId = leads.length ? Math.max(...leads.map(l => l.id)) + 1 : 1;
-        hot.forEach(l => {
-          leads.push({ id: nextId++, nome: l.nome, empresa: l.empresa, cidade: l.cidade, segmento: l.segmento, telefone: l.telefone, email: l.email, valor: 6000, origem: 'Google', status: 'contato', obs: `${l.fake ? '[DEMO FICTÍCIO] ' : ''}Agente IA · nota ${l.score}. ${l.motivo}${l.site ? ' · ' + l.site : ''}${l.endereco ? ' · ' + l.endereco : ''}` });
-          l.enviado = true;
-        });
-        save(); persist(); renderAll(); render();
-        log(`✔ ${hot.length} interessados enviados pro CRM (etapa Contato).`);
-        toast(hot.length + ' leads enviados pro CRM');
-      }
-
-      function render() {
-        const q = pool.filter(l => l.score !== null), hot = pool.filter(l => l.interessado);
-        $('ag-n-pros').textContent = pool.length;
-        $('ag-n-qual').textContent = q.length;
-        $('ag-n-hot').textContent = hot.length;
-        $('ag-n-rate').textContent = (q.length ? hot.length / q.length * 100 : 0).toFixed(0) + '%';
-        const rows = pool.slice().sort((a, b) => (b.score ?? -1) - (a.score ?? -1)).slice(0, 100);
-        $('ag-table').innerHTML = rows.map(l => {
-          const cls = l.score === null ? '' : l.interessado ? 'ag-hot' : l.score >= 40 ? 'ag-warm' : 'ag-cold';
-          const st = l.score === null ? 'Aguardando' : l.enviado ? 'No CRM' : l.interessado ? 'Interessado' : l.score >= 40 ? 'Morno' : 'Frio';
-          return `<tr><td><strong>${escapeHTML(l.nome)}</strong>${l.fake ? '<span class="ag-tag-demo">DEMO</span>' : ''}<br><span style="color:var(--text-muted);font-size:12px">${escapeHTML(l.endereco || l.empresa)}</span></td><td>${escapeHTML(l.cidade)}</td><td>${escapeHTML(l.telefone || '—')}</td><td class="ag-score ${cls}">${l.score ?? '—'}</td><td>${st}</td><td style="font-size:12px;color:var(--text-muted)">${escapeHTML(l.motivo || '—')}</td></tr>`;
-        }).join('') || '<tr><td colspan="6" class="empty">Nenhum lead ainda.</td></tr>';
-      }
-
-      $('ag-run-pros').addEventListener('click', runProspect);
-      $('ag-run-qual').addEventListener('click', runQualify);
-      $('ag-save-crm').addEventListener('click', sendToCRM);
-      banner(); render();
-    })();
-
     // Sempre renderiza os dados (app já está visível por baixo do login)
     renderAll();
+
+
+    // ===== RECURSOS DE PRODUTIVIDADE E PROTEÇÃO DE DADOS =====
+    (function enhanceSolutionMath(){
+      const body=document.body;
+      const themeButton=document.getElementById('btn-theme');
+      const savedTheme=localStorage.getItem('sm_theme_v1');
+      if(savedTheme==='light') body.classList.add('light-theme');
+      function updateThemeLabel(){ if(themeButton) themeButton.textContent=body.classList.contains('light-theme')?'☾ Escuro':'☼ Claro'; }
+      themeButton?.addEventListener('click',()=>{body.classList.toggle('light-theme');localStorage.setItem('sm_theme_v1',body.classList.contains('light-theme')?'light':'dark');updateThemeLabel();});
+      updateThemeLabel();
+
+      // Backup contém apenas dados operacionais; nunca exporta credenciais.
+      const backupButton=document.getElementById('btn-backup');
+      const importInput=document.getElementById('backup-import');
+      backupButton?.addEventListener('click',()=>{
+        const choice=confirm('OK para exportar um backup.\nCancelar para importar um backup existente.');
+        if(choice){
+          const payload={product:'SM Solution Math',formatVersion:1,exportedAt:new Date().toISOString(),leads,transactions};
+          const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+          const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='sm-solution-math-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup exportado com sucesso.');
+        }else importInput?.click();
+      });
+      importInput?.addEventListener('change',async e=>{
+        const file=e.target.files?.[0];if(!file)return;
+        try{
+          const data=JSON.parse(await file.text());
+          if(!data||!Array.isArray(data.leads)||!Array.isArray(data.transactions))throw new Error('Estrutura do arquivo inválida.');
+          const validLeads=data.leads.every(l=>l&&Number.isFinite(Number(l.id))&&typeof l.nome==='string'&&typeof l.empresa==='string'&&STAGES.some(st=>st.id===l.status));
+          const validTransactions=data.transactions.every(t=>t&&Number.isFinite(Number(t.id))&&typeof t.description==='string'&&Number(t.value)>0&&['receita','despesa'].includes(t.type)&&['pago','aberto'].includes(t.status));
+          if(!validLeads||!validTransactions)throw new Error('O backup contém registros inválidos.');
+          if(!confirm('Importar este backup vai substituir os leads e lançamentos deste navegador. Deseja continuar?'))return;
+          leads=data.leads;transactions=data.transactions;save();saveTransactions();renderAll();toast('Backup restaurado.');
+        }catch(err){toast('Não foi possível importar: '+err.message);}finally{e.target.value='';}
+      });
+
+      // Prioridades: leads ativos com maior valor estimado.
+      window.renderPriorityLeads=function(){
+        const target=document.getElementById('priority-list');if(!target)return;
+        const top=leads.filter(l=>!['fechado','perdido'].includes(l.status)).slice().sort((a,b)=>Number(b.valor||0)-Number(a.valor||0)).slice(0,3);
+        target.innerHTML=top.map(l=>`<article class="priority-item"><strong>${escapeHTML(l.empresa||l.nome)}</strong><small>${escapeHTML(l.nome)} · ${STAGES.find(s=>s.id===l.status)?.label||'Novo'}</small><div class="priority-bottom"><span class="priority-value">${money(l.valor)}</span><button type="button" onclick="openModalById(${Number(l.id)})">Abrir lead →</button></div></article>`).join('')||'<div class="empty">Nenhuma oportunidade ativa no momento.</div>';
+      };
+      const originalRenderAll=window.renderAll;
+      const runPriorities=()=>{window.renderPriorityLeads();const g=document.getElementById('dashboard-greeting');const d=document.getElementById('dashboard-date');const user=sessionStorage.getItem('sm_user')||'equipe';if(g)g.textContent='Olá, '+user.split(' ')[0]+'.';if(d)d.textContent=new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});};
+      if(typeof originalRenderAll==='function')window.renderAll=function(){originalRenderAll();runPriorities();};
+      runPriorities();
+
+      // Perfil editável (armazenamento local do protótipo).
+      const profileKey='sm_profile_v1', waKey='sm_whatsapp_business_v1';
+      const readJSON=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key)||'null')||fallback}catch(_){return fallback}};
+      const profile=readJSON(profileKey,{}), wa=readJSON(waKey,{});
+      const profileFields={name:'profile-name',role:'profile-role',email:'profile-email',phone:'profile-phone',company:'profile-company'};
+      Object.entries(profileFields).forEach(([key,id])=>{const el=document.getElementById(id);if(el)el.value=profile[key]|| (key==='name'?(sessionStorage.getItem('sm_user')||''):key==='company'?'SM Solution Math':'');});
+      const waNumber=document.getElementById('wa-number'),waMessage=document.getElementById('wa-message');
+      if(waNumber)waNumber.value=wa.number||'';if(waMessage)waMessage.value=wa.message||'Olá! Vim pelo atendimento da SM Solution Math.';
+      function updateWaStatus(){const configured=(waNumber?.value||'').replace(/\D/g,'').length>=12;document.getElementById('wa-status-dot')?.classList.toggle('connected',configured);document.getElementById('wa-status-text').textContent=configured?'Número configurado para iniciar conversas':'Número não configurado';document.getElementById('wa-status-pill').textContent=configured?'LINK PRONTO':'PENDENTE';document.getElementById('wa-status-pill').classList.toggle('connected',configured);}
+      updateWaStatus();
+      document.getElementById('profile-form')?.addEventListener('submit',e=>{e.preventDefault();const data={};Object.entries(profileFields).forEach(([key,id])=>data[key]=document.getElementById(id).value.trim());if(!data.name){toast('Informe seu nome.');return;}localStorage.setItem(profileKey,JSON.stringify(data));sessionStorage.setItem('sm_user',data.name);const greeting=document.getElementById('dashboard-greeting');if(greeting)greeting.textContent='Olá, '+data.name.split(' ')[0]+'.';const avatar=document.getElementById('user-avatar');if(avatar){avatar.textContent=data.name.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();avatar.title=data.name;}document.getElementById('profile-feedback').textContent='Perfil atualizado agora.';toast('Perfil atualizado com sucesso.');});
+      document.getElementById('whatsapp-form')?.addEventListener('submit',e=>{e.preventDefault();const number=(waNumber.value||'').replace(/\D/g,'');if(number.length<12||number.length>15){toast('Informe o número com código do país, DDD e telefone.');waNumber.focus();return;}localStorage.setItem(waKey,JSON.stringify({number,message:waMessage.value.trim()}));updateWaStatus();toast('Número comercial salvo. Link de conversa configurado.');});
+      document.getElementById('wa-test')?.addEventListener('click',()=>{const number=(waNumber.value||'').replace(/\D/g,'');if(number.length<12||number.length>15){toast('Informe e salve um número válido primeiro.');waNumber.focus();return;}const message=encodeURIComponent(waMessage.value.trim()||'Olá!');window.open('https://wa.me/'+number+'?text='+message,'_blank','noopener,noreferrer');});
+      waNumber?.addEventListener('input',updateWaStatus);
+
+      // Menu lateral acessível em telas menores.
+      const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('sidebar-overlay'),toggle=document.getElementById('menu-toggle');
+      function closeMenu(){sidebar?.classList.remove('open');overlay?.classList.remove('show');body.classList.remove('menu-open');}
+      function openMenu(){sidebar?.classList.add('open');overlay?.classList.add('show');body.classList.add('menu-open');}
+      toggle?.addEventListener('click',()=>sidebar?.classList.contains('open')?closeMenu():openMenu());
+      overlay?.addEventListener('click',closeMenu);
+      document.querySelectorAll('.nav-item[data-view]').forEach(item=>item.addEventListener('click',closeMenu));
+
+      // Fechar diálogos com Escape e impedir rolagem de fundo.
+      document.addEventListener('keydown',e=>{
+        if(e.key==='Escape'){
+          document.getElementById('modal-lead')?.classList.remove('open');
+          document.getElementById('modal-transaction')?.classList.remove('open');
+          closeMenu();
+        }
+        if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){
+          const active=document.querySelector('.view.active');const search=active?.querySelector('input[type="text"]');if(search){e.preventDefault();search.focus();}
+        }
+      });
+
+      // Remove cadastro somente após confirmação explícita.
+      const modalFooter=document.querySelector('#modal-lead .modal-footer');
+      if(modalFooter&&!document.getElementById('modal-delete-lead')){
+        const del=document.createElement('button');del.type='button';del.id='modal-delete-lead';del.className='btn btn-danger-soft';del.textContent='Excluir lead';del.style.marginRight='auto';del.style.display='none';modalFooter.prepend(del);
+        del.addEventListener('click',()=>{if(!editingId)return;const item=leads.find(l=>l.id===editingId);if(!item)return;if(!confirm('Excluir o lead '+item.empresa+'? Esta ação não pode ser desfeita.'))return;leads=leads.filter(l=>l.id!==editingId);save();document.getElementById('modal-lead').classList.remove('open');editingId=null;renderAll();toast('Lead excluído.');});
+        const originalOpenModal=window.openModal;
+        window.openModal=function(lead=null){originalOpenModal(lead);del.style.display=lead?'inline-flex':'none';};
+      }
+
+      // Mostra nome curto no avatar e indica que o armazenamento é local.
+      const avatar=document.getElementById('user-avatar');
+      if(avatar){const user=sessionStorage.getItem('sm_user')||'SM';avatar.textContent=user.split(/\s+/).slice(0,2).map(x=>x[0]||'').join('').toUpperCase();avatar.title=user+' · dados salvos neste navegador';}
+      const hint=document.getElementById('auth-hint');
+      if(hint&&!hint.textContent.includes('neste navegador'))hint.textContent+=' Os dados deste protótipo ficam salvos somente neste navegador.';
+    })();
+
   </script>
 </body>
 </html>
